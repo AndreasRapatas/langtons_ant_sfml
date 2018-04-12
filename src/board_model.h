@@ -31,7 +31,7 @@ private:
 			direction(Direction::up)
 		{}
 
-		void turn_left() {
+		void turn_right() {
 
 			switch (direction) {
 
@@ -50,7 +50,7 @@ private:
 			}
 		}
 
-		void turn_right() {
+		void turn_left() {
 
 			switch (direction) {
 
@@ -74,12 +74,12 @@ private:
 			switch(direction) {
 
 			case Direction::up:
-				y = y == height
+				y = y == height - 1
 					? 0
 					: y + 1;
 				break;
 			case Direction::right:
-				x = x == width
+				x = x == width - 1
 					? 0
 					: x + 1;
 				break;
@@ -147,9 +147,9 @@ public:
 			next_state(ant.x, ant.y) = !state(ant.x, ant.y);
 
 			if (state(ant.x, ant.y)) {
-				ant.turn_left();
-			} else {
 				ant.turn_right();
+			} else {
+				ant.turn_left();
 			}
 
 			ant.move(height, width);
@@ -168,6 +168,10 @@ public:
 
 	bool at(unsigned x, unsigned y) const {
 		return state(x, y);
+	}
+
+	bool operator[](unsigned i) const {
+		return state[i];
 	}
 };
 
