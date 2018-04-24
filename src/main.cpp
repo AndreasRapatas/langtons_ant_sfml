@@ -3,33 +3,22 @@
 #include <random>
 
 #include <SFML/Graphics.hpp>
-#include "board_model.h"
+
+#include "langtons_ant_controller.h"
 
 using namespace std;
 using namespace sf;
 
 int main() {
 
-	// unsigned width = 854; unsigned height = 480;
-	unsigned width = 200; unsigned height = 100;
+	unsigned width = 100;
+	unsigned height = 50;
+	unsigned size = 10;
 
-	unsigned cell_num = height * width;
+	LangtonsAnt la(width, height, size, 2);
 
-	Board board(width, height, 5);
-
-	RenderWindow window(VideoMode(width, height), "Langton's Ant");
-	// window.setVerticalSyncEnabled(true);
-	// window.setFramerateLimit(300);
-
-	Texture texture;
-	if (!texture.create(width, height)) { exit(1); }
-	Sprite sprite;
-
-	uint8_t *pixels = new uint8_t[cell_num * 4];
-	if (!pixels) {
-		std::cout << "Malloc " << cell_num * sizeof(uint8_t) << " failed!\n";
-		exit(1);
-	}
+	RenderWindow window(VideoMode(width * size, height * size), "Langton's Ant");
+	window.setVerticalSyncEnabled(true);
 
 	while (window.isOpen()) {
 
@@ -40,21 +29,13 @@ int main() {
 			}
 		}
 
-		board.step();
-
-		for (size_t i = 0; i < cell_num; ++i) {
-			((uint32_t*)pixels)[i] = board[i] ? 0xFFFFFFFF : 0xFF000000;
-		}
-
-		texture.update(pixels);
-		sprite.setTexture(texture);
+		la.step();
 
 		window.clear();
-		window.draw(sprite);
+		window.draw(la);
 		window.display();
 	}
 
-	delete[] pixels;
 
 	return 0;
 }

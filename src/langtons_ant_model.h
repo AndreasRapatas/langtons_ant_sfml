@@ -9,7 +9,7 @@ using namespace std;
 
 #include "../third_party/flat_matrix/include/flat_matrix.h"
 
-class Board {
+class LangtonsAntModel {
 
 private:
 
@@ -110,7 +110,7 @@ private:
 
 public:
 
-	Board(unsigned x, unsigned y, unsigned num_of_ants) :
+	LangtonsAntModel(unsigned x, unsigned y, unsigned num_of_ants) :
 		height(y),
 		width(x),
 		state(flat_matrix<bool>(x, y)),
