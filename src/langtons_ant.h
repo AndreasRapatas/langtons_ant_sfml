@@ -5,11 +5,15 @@
 #include <random>
 #include <iostream>
 
+#include <SFML/Graphics.hpp>
+
+#include <flat_matrix/flat_matrix.h>
+#include <CAVIS/cellular_automaton.h>
+
 using namespace std;
 
-#include "../third_party/flat_matrix/include/flat_matrix.h"
 
-class LangtonsAntModel {
+class LangtonsAnt : public CellularAutomaton {
 
 private:
 
@@ -110,7 +114,7 @@ private:
 
 public:
 
-	LangtonsAntModel(unsigned x, unsigned y, unsigned num_of_ants) :
+	LangtonsAnt(unsigned x, unsigned y, unsigned num_of_ants) :
 		height(y),
 		width(x),
 		state(flat_matrix<bool>(x, y)),
@@ -158,20 +162,18 @@ public:
 		state = next_state;
 	}
 
-	unsigned get_height() const {
+	unsigned get_height() {
 		return height;
 	}
 
-	unsigned get_width() const {
-		return height;
+	unsigned get_width() {
+		return width;
 	}
 
-	bool at(unsigned x, unsigned y) const {
-		return state(x, y);
-	}
-
-	bool operator[](unsigned i) const {
-		return state[i];
+	sf::Color get_pixel(unsigned i) {
+		return state[i]
+			? sf::Color::Cyan
+			: sf::Color::Black;
 	}
 };
 

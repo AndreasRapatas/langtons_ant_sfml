@@ -4,21 +4,23 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "langtons_ant_controller.h"
+#include "langtons_ant.h"
+#include <CAVIS/cavis.h>
 
 using namespace std;
 using namespace sf;
 
 int main() {
 
-	unsigned width = 100;
-	unsigned height = 50;
-	unsigned size = 10;
+	unsigned width = 200;
+	unsigned height = 100;
 
-	LangtonsAnt la(width, height, size, 2);
+	LangtonsAnt la(width, height, 1);
+	Cavis c(&la);
 
-	RenderWindow window(VideoMode(width * size, height * size), "Langton's Ant");
+	RenderWindow window(VideoMode(width, height), "Langton's Ant");
 	window.setVerticalSyncEnabled(true);
+	sf::Clock clock;
 
 	while (window.isOpen()) {
 
@@ -29,10 +31,9 @@ int main() {
 			}
 		}
 
-		la.step();
-
 		window.clear();
-		window.draw(la);
+		c.update(clock.restart().asSeconds());
+		window.draw(c);
 		window.display();
 	}
 
