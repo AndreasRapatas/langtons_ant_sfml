@@ -32,6 +32,7 @@ int main() {
 		}
 
 		window.clear();
+		c.handle_user();
 		c.update(clock.restart().asSeconds());
 		window.draw(c);
 		window.display();
