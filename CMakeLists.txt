@@ -9,6 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(
 	${PROJECT_NAME}
 	./src/main.cpp
+	./src/langtons_ant.cpp
 )
 
 find_package(CAVIS CONFIG REQUIRED)
