@@ -14,15 +14,21 @@ int main() {
 
 	unsigned width = 200;
 	unsigned height = 100;
+	unsigned pixel_size = 4;
 
 	LangtonsAnt la(width, height, 1);
-	Cavis c(&la);
+	Cavis c(&la, pixel_size);
+	c.add_grid(1, Color(50,50,50,255));
+	c.add_grid(5, Color(100,100,100,255));
+	c.add_grid(10, Color(150,150,150,255));
 
-	RenderWindow window(VideoMode(width, height), "Langton's Ant");
+	RenderWindow window(VideoMode(width * pixel_size, height * pixel_size), "Langton's Ant");
 	window.setVerticalSyncEnabled(true);
 	sf::Clock clock;
 
 	while (window.isOpen()) {
+
+		double dt = clock.restart().asSeconds();
 
 		Event event;
 		while (window.pollEvent(event)) {
@@ -33,7 +39,7 @@ int main() {
 
 		window.clear();
 		c.handle_user();
-		c.update(clock.restart().asSeconds());
+		c.update(dt);
 		window.draw(c);
 		window.display();
 	}

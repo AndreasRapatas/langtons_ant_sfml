@@ -1,17 +1,15 @@
-#ifndef BOARD_MODEL_H
-#define BOARD_MODEL_H
+#ifndef LANGTONS_ANT_H
+#define LANGTONS_ANT_H
 
 #include <vector>
 #include <random>
 #include <iostream>
 
-#include <SFML/Graphics.hpp>
-
 #include <flat_matrix/flat_matrix.h>
-#include <CAVIS/cellular_automaton.h>
+
+#include "CAVIS/cellular_automaton.h"
 
 using namespace std;
-
 
 class LangtonsAnt : public CellularAutomaton {
 
@@ -101,8 +99,8 @@ private:
 		}
 	};
 
-	unsigned height;
 	unsigned width;
+	unsigned height;
 	flat_matrix<bool> state;
 	flat_matrix<bool> next_state;
 	unsigned num_of_ants;
@@ -112,32 +110,39 @@ private:
 	uniform_int_distribution<unsigned> distribution_x;
 	uniform_int_distribution<unsigned> distribution_y;
 
-public:
+	void initialize_states() {
 
-	LangtonsAnt(unsigned x, unsigned y, unsigned num_of_ants) :
-		height(y),
-		width(x),
-		state(flat_matrix<bool>(x, y)),
-		next_state(flat_matrix<bool>(x, y)),
-		num_of_ants(num_of_ants)
-	{
-		generator.seed(random_device()());
-		distribution_x = uniform_int_distribution<unsigned>(0, width - 1);
-		distribution_y = uniform_int_distribution<unsigned>(0, height - 1);
-
-		// Init state
-		for (unsigned i = 0; i < x * y; ++i) {
+		for (unsigned i = 0; i != width * height; ++i) {
 			state[i] = false;
 			next_state[i] = false;
 		}
+	}
 
-		// Place ants randomly
+	void place_ant_rand() {
+
+		unsigned x_pos = distribution_x(generator);
+		unsigned y_pos = distribution_y(generator);
+
+		ants.push_back({x_pos, y_pos});
+	}
+
+public:
+
+	LangtonsAnt(unsigned width, unsigned height, unsigned num_of_ants) :
+		width(width),
+		height(height),
+		state(flat_matrix<bool>(width, height)),
+		next_state(flat_matrix<bool>(width, height)),
+		num_of_ants(num_of_ants),
+		distribution_x(uniform_int_distribution<unsigned>(0, width - 1)),
+		distribution_y(uniform_int_distribution<unsigned>(0, height - 1))
+	{
+		generator.seed(random_device()());
+
+		initialize_states();
+
 		for (unsigned i = 0; i != num_of_ants; ++i) {
-
-			unsigned x_pos = distribution_x(generator);
-			unsigned y_pos = distribution_y(generator);
-
-			ants.push_back({x_pos, y_pos});
+			place_ant_rand();
 		}
 	}
 
@@ -162,12 +167,26 @@ public:
 		state = next_state;
 	}
 
-	unsigned get_height() {
-		return height;
+	sf::Vector2u get_dimentions() {
+		return {width, height};
 	}
 
-	unsigned get_width() {
-		return width;
+	void set_dimentions(sf::Vector2u dim) {
+
+		width = dim.x;
+		height = dim.y;
+
+		distribution_x = uniform_int_distribution<unsigned>(0, width - 1);
+		distribution_y = uniform_int_distribution<unsigned>(0, height - 1);
+
+		state = flat_matrix<bool>(width, height);
+		next_state = flat_matrix<bool>(width, height);
+		initialize_states();
+
+		ants.clear();
+		for (unsigned i = 0; i != num_of_ants; ++i) {
+			place_ant_rand();
+		}
 	}
 
 	sf::Color get_pixel(unsigned i) {
@@ -175,7 +194,17 @@ public:
 			? sf::Color::Cyan
 			: sf::Color::Black;
 	}
+
+	std::vector<Agent> get_agents() {
+
+		std::vector<Agent> agents;
+
+		for (const auto &ant : ants) {
+			agents.emplace_back(ant.x, ant.y, sf::Color(255,0,0));
+		}
+
+		return agents;
+	}
 };
 
-
-#endif // BOARD_MODEL_H
+#endif // LANGTONS_ANT_H
