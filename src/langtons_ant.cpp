@@ -46,6 +46,11 @@ void LangtonsAnt::Ant::turn_left() {
 
 void LangtonsAnt::Ant::move(unsigned height, unsigned width) {
 
+	// The ternary is used to wrap the ant around the plane.
+	// val = val == end of the dimention?
+	//		yes: go to the other end
+	//		no: actually move
+
 	switch(direction) {
 
 	case Direction::up:
@@ -71,12 +76,12 @@ void LangtonsAnt::Ant::move(unsigned height, unsigned width) {
 	}
 }
 
-LangtonsAnt::LangtonsAnt(unsigned x, unsigned y, unsigned num_of_ants) :
-	width(x),
-	height(y),
+LangtonsAnt::LangtonsAnt(unsigned width, unsigned height, unsigned num_of_ants) :
+	width(width),
+	height(height),
 	num_of_ants(num_of_ants),
-	state(flat_matrix<bool>(x, y)),
-	next_state(flat_matrix<bool>(x, y)),
+	state(flat_matrix<bool>(width, height)),
+	next_state(flat_matrix<bool>(width, height)),
 	distribution_x(uniform_int_distribution<unsigned>(0, width - 1)),
 	distribution_y(uniform_int_distribution<unsigned>(0, height - 1))
 {
