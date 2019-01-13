@@ -76,7 +76,9 @@ LangtonsAnt::LangtonsAnt(unsigned x, unsigned y, unsigned num_of_ants) :
 	height(y),
 	num_of_ants(num_of_ants),
 	state(flat_matrix<bool>(x, y)),
-	next_state(flat_matrix<bool>(x, y))
+	next_state(flat_matrix<bool>(x, y)),
+	distribution_x(uniform_int_distribution<unsigned>(0, width - 1)),
+	distribution_y(uniform_int_distribution<unsigned>(0, height - 1))
 {
 	generator.seed(random_device()());
 
