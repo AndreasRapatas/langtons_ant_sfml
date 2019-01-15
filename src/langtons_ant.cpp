@@ -76,23 +76,13 @@ void LangtonsAnt::Ant::move(unsigned height, unsigned width) {
 	}
 }
 
-LangtonsAnt::LangtonsAnt(unsigned width, unsigned height, unsigned num_of_ants) :
-	width(width),
-	height(height),
-	num_of_ants(num_of_ants),
-	state(flat_matrix<bool>(width, height)),
-	next_state(flat_matrix<bool>(width, height)),
-	distribution_x(uniform_int_distribution<unsigned>(0, width - 1)),
-	distribution_y(uniform_int_distribution<unsigned>(0, height - 1))
-{
-	generator.seed(random_device()());
-
-	initialize_states();
-
-	for (unsigned i = 0; i != num_of_ants; ++i) {
-		place_ant_randomly();
-	}
-}
+LangtonsAnt::LangtonsAnt(sf::Vector2u dim) :
+	width(dim.x),
+	height(dim.y),
+	num_of_ants(3),
+	state(width, height),
+	next_state(width, height)
+{}
 
 void LangtonsAnt::initialize_states() {
 

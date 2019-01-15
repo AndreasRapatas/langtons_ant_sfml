@@ -12,7 +12,7 @@ add_executable(
 	./src/langtons_ant.cpp
 )
 
-find_package(CAVIS CONFIG REQUIRED)
+find_package(CAVIS 0.0.1 CONFIG REQUIRED)
 find_package(flat_matrix CONFIG REQUIRED)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
