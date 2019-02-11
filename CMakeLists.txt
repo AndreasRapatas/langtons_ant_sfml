@@ -12,8 +12,8 @@ add_executable(
 	./src/langtons_ant.cpp
 )
 
-find_package(CAVIS 0.0.1 CONFIG REQUIRED)
-find_package(flat_matrix CONFIG REQUIRED)
+find_package(CAVIS 1.2 CONFIG REQUIRED)
+find_package(flat_matrix 1.2 CONFIG REQUIRED)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
 find_package(SFML 2 REQUIRED network audio graphics window system)
