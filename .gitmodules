@@ -1,3 +1,0 @@
-[submodule "third_party/flat_matrix"]
-	path = third_party/flat_matrix
-	url = https://github.com/AndreasRapatas/flat_matrix.git
