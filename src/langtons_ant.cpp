@@ -76,12 +76,8 @@ void LangtonsAnt::Ant::move(unsigned height, unsigned width) {
 	}
 }
 
-LangtonsAnt::LangtonsAnt(sf::Vector2u dim) :
-	width(dim.x),
-	height(dim.y),
-	num_of_ants(3),
-	state(width, height),
-	next_state(width, height)
+LangtonsAnt::LangtonsAnt(unsigned num_of_ants) :
+	num_of_ants(num_of_ants)
 {}
 
 void LangtonsAnt::initialize_states() {

@@ -9,7 +9,15 @@ int main() {
 	unsigned width = height * 16 / 9;
 	unsigned pixel_size = 4;
 
-	Window<LangtonsAnt> window(width, height, pixel_size, "Langton's Ant");
+	unsigned num_of_ants = 3;
+
+	Window window(
+		std::make_unique<LangtonsAnt>(num_of_ants),
+		width,
+		height,
+		pixel_size,
+		"Langton's Ant"
+	);
 	window.run();
 
 	return 0;

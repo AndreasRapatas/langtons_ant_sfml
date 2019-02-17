@@ -48,7 +48,7 @@ private:
 
 public:
 
-	LangtonsAnt(sf::Vector2u dim);
+	LangtonsAnt(unsigned num_of_ants);
 
 	void step();
 
