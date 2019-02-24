@@ -3,7 +3,8 @@
 * At a white square, turn 90° right, flip the color of the square, move forward one unit
 * At a black square, turn 90° left, flip the color of the square, move forward one unit
 
-![Preview](https://i.imgur.com/3lk8FZU.png "Langtons Ant")
+# Enjoy 3 ants on a torus:
+![Preview](https://i.imgur.com/348YuU3.gif "3 ants on a torus")
 
 This project implements Langton's Ant using C++ and displays it using [Rapatas/CAVIS](https://github.com/Rapatas/CAVIS)
 
