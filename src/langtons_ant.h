@@ -8,8 +8,6 @@
 
 #include "CAVIS/cellular_automaton.h"
 
-using namespace std;
-
 class LangtonsAnt : public CellularAutomaton {
 
 private:
@@ -35,13 +33,13 @@ private:
 	unsigned width;
 	unsigned height;
 	unsigned num_of_ants;
-	vector<Ant> ants;
+	std::vector<Ant> ants;
 	flat_matrix<bool> state;
 	flat_matrix<bool> next_state;
 
-	default_random_engine generator;
-	uniform_int_distribution<unsigned> distribution_x;
-	uniform_int_distribution<unsigned> distribution_y;
+	std::default_random_engine generator;
+	std::uniform_int_distribution<unsigned> distribution_x;
+	std::uniform_int_distribution<unsigned> distribution_y;
 
 	void initialize_states();
 
