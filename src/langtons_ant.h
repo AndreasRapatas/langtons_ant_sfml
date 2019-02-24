@@ -44,6 +44,7 @@ private:
 	uniform_int_distribution<unsigned> distribution_y;
 
 	void initialize_states();
+
 	void place_ant_randomly();
 
 public:
@@ -53,9 +54,11 @@ public:
 	void step();
 
 	sf::Vector2u get_dimentions();
+
 	void set_dimentions(sf::Vector2u dim);
 
 	std::vector<Agent> get_agents();
+
 	sf::Color get_pixel(unsigned i);
 };
 

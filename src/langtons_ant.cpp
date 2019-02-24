@@ -83,7 +83,7 @@ LangtonsAnt::LangtonsAnt(unsigned num_of_ants) :
 void LangtonsAnt::initialize_states() {
 
 	for (unsigned i = 0; i != width * height; ++i) {
-		state[i] = false;
+		state[i]      = false;
 		next_state[i] = false;
 	}
 }
@@ -120,15 +120,15 @@ sf::Vector2u LangtonsAnt::get_dimentions() {
 	return {width, height};
 }
 
-void LangtonsAnt::set_dimentions(sf::Vector2u dim) {
+void LangtonsAnt::set_dimentions(sf::Vector2u dientions) {
 
-	width = dim.x;
-	height = dim.y;
+	width  = dientions.x;
+	height = dientions.y;
 
 	distribution_x = uniform_int_distribution<unsigned>(0, width - 1);
 	distribution_y = uniform_int_distribution<unsigned>(0, height - 1);
 
-	state = flat_matrix<bool>(width, height);
+	state      = flat_matrix<bool>(width, height);
 	next_state = flat_matrix<bool>(width, height);
 	initialize_states();
 
